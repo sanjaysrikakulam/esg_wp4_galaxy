@@ -2,8 +2,8 @@
 # For restricted datasets (deferred data and other test stuff)
 galaxy_restricted_data_dir: '/var/www/galaxy-restricted-data'
 galaxy_restricted_data_allowed_ip:
-  - 192.52.44.223
-  - 10.5.68.0/24
+  - 132.230.224.179
+  - 10.5.67.0/24
   - 10.113.3.8
   - 10.113.3.13
   - 193.190.80.1
@@ -25,19 +25,19 @@ software_groups_to_install:
   - terminals
   - utils
 handy_users:
-  - user_name: "{{ galaxy_user.name }}"
-    user_uid: "{{ galaxy_user.uid }}"
-    user_group: "{{ galaxy_group.name }}"
-    user_comment: "Galaxy useraccount"
-    user_create_home: "{{ galaxy_user.create_home }}"
-    user_home: "{{ galaxy_user.home }}"
-    user_shell: "{{ galaxy_user.shell }}"
+  - user_name: '{{ galaxy_user.name }}'
+    user_uid: '{{ galaxy_user.uid }}'
+    user_group: '{{ galaxy_group.name }}'
+    user_comment: 'Galaxy useraccount'
+    user_create_home: '{{ galaxy_user.create_home }}'
+    user_home: '{{ galaxy_user.home }}'
+    user_shell: '{{ galaxy_user.shell }}'
 handy_groups:
-  - group_name: "{{ galaxy_group.name }}"
-    group_gid: "{{ galaxy_group.gid }}"
+  - group_name: '{{ galaxy_group.name }}'
+    group_gid: '{{ galaxy_group.gid }}'
 
 # Custom pip installer
-pip_venv_path: "{{ galaxy_venv_dir }}"
+pip_venv_path: '{{ galaxy_venv_dir }}'
 pip_install_dependencies:
   # phdcomics
   - beautifulsoup4
@@ -62,14 +62,14 @@ autofs_mount_points:
   - usrlocal
 autofs_conf_files:
   data:
-    - galaxy_data      -rw,hard,nosuid      192.52.43.233:/nfs_shares/&
-    - galaxy_main      -rw,hard,nosuid      192.52.43.233:/nfs_shares/&
+    - galaxy_data      -rw,hard,nosuid      132.230.224.180:/nfs_shares/&
+    - galaxy_main      -rw,hard,nosuid      132.230.224.180:/nfs_shares/&
     - twd01            -rw,hard,nosuid      zfs0f.galaxyproject.eu:/export/twd01
   usrlocal:
-    - /usr/local/tools   -rw,hard,nosuid     192.52.43.233:/nfs_shares/tools
+    - /usr/local/tools   -rw,hard,nosuid     132.230.224.180:/nfs_shares/tools
 
 # Miniconda role variables (galaxyproject.miniconda)
-conda_prefix_dir: /usr/local/tools/miniconda
+conda_prefix_dir: /data/twd01/tools/miniconda
 
 # AWS
 # aws_cli_credentials:
@@ -85,21 +85,21 @@ galaxy_nfs_location: /data/galaxy_main
 # Certbot
 certbot_admin_email: sanjaysrikakulam@gmail.com
 certbot_virtualenv_package_name: python3-virtualenv
-certbot_virtualenv_command: "python3.8 -m venv"
+certbot_virtualenv_command: 'python3.8 -m venv'
 certbot_auth_method: --webroot
 
-certbot_auto_renew_hour: "{{ 23 | random(seed=inventory_hostname) }}"
-certbot_auto_renew_minute: "{{ 59 | random(seed=inventory_hostname) }}"
+certbot_auto_renew_hour: '{{ 23 | random(seed=inventory_hostname) }}'
+certbot_auto_renew_minute: '{{ 59 | random(seed=inventory_hostname) }}'
 certbot_install_method: virtualenv
 certbot_auto_renew: true
 certbot_auto_renew_user: root
-certbot_environment: "production"
+certbot_environment: 'production'
 certbot_well_known_root: /etc/nginx/_well-known_root
 certbot_share_key_users:
   - nginx
 certbot_post_renewal: |
-    systemctl restart nginx || true
-certbot_domains: "{{ server_names }}"
+  systemctl restart nginx || true
+certbot_domains: '{{ server_names }}'
 certbot_agree_tos: --agree-tos
 
 # Nginx
@@ -111,14 +111,14 @@ nginx_ssl_servers:
 nginx_enable_default_server: false
 nginx_conf_http:
   client_max_body_size: 1g
-  proxy_cache_path: "/tmp/nginx-cache levels=1:2 keys_zone=STATIC:10m inactive=24h  max_size=1g"
-  gzip: "on"
+  proxy_cache_path: '/tmp/nginx-cache levels=1:2 keys_zone=STATIC:10m inactive=24h  max_size=1g'
+  gzip: 'on'
   gzip_proxied: any
-  gzip_static: "on"
-  gzip_vary: "on"
+  gzip_static: 'on'
+  gzip_vary: 'on'
   gzip_min_length: 128
   gzip_comp_level: 6
-  gzip_http_version: "1.1"
+  gzip_http_version: '1.1'
   gzip_disable: '"MSIE [1-6]\."'
   gzip_types: |
     text/plain
@@ -136,7 +136,7 @@ nginx_conf_http:
     image/png
     image/svg+xml
     image/x-icon
-  gzip_buffers: "16 8k"
+  gzip_buffers: '16 8k'
 nginx_ssl_role: usegalaxy-eu.certbot
 nginx_conf_ssl_certificate: /etc/ssl/certs/fullchain.pem
 nginx_conf_ssl_certificate_key: /etc/ssl/user/privkey-nginx.pem
@@ -149,35 +149,35 @@ cvmfs_role: client
 galaxy_cvmfs_repos_enabled: config-repo
 
 # SystemD
-galaxy_systemd_mode: "gunicorn"
+galaxy_systemd_mode: 'gunicorn'
 galaxy_systemd_gunicorns: 1
 galaxy_systemd_gunicorn_workers: 2
 galaxy_systemd_gunicorn_timeout: 600
 galaxy_systemd_handlers: 1
 galaxy_systemd_workflow_schedulers: 1
 
-galaxy_systemd_handler_env: ""
-galaxy_systemd_workflow_scheduler_env: ""
+galaxy_systemd_handler_env: ''
+galaxy_systemd_workflow_scheduler_env: ''
 
 galaxy_systemd_memory_limit: 5
 galaxy_systemd_memory_limit_handler: 2
 galaxy_systemd_memory_limit_workflow: 2
 
 # HTCondor
-condor_host: "{{ inventory_hostname }}"
-condor_fs_domain: esgwpfour.uni-freiburg.de
-condor_uid_domain: esgwpfour.uni-freiburg.de
-condor_allow_write: "192.52.40.0/21"
+condor_host: '{{ inventory_hostname }}'
+condor_fs_domain: esg.uni-freiburg.de
+condor_uid_domain: esg.uni-freiburg.de
+condor_allow_write: '132.230.224.0/24'
 condor_daemons:
   - COLLECTOR
   - NEGOTIATOR
   - MASTER
   - SCHEDD
-condor_allow_negotiator: "{{ ansible_host }},$(CONDOR_HOST),$(ALLOW_WRITE)"
-condor_allow_administrator: "$(ALLOW_NEGOTIATOR)"
+condor_allow_negotiator: '{{ ansible_host }},$(CONDOR_HOST),$(ALLOW_WRITE)'
+condor_allow_administrator: '$(ALLOW_NEGOTIATOR)'
 
-condor_system_periodic_hold: "{{ 30 * 24 * 60 * 60 }}"
-condor_system_periodic_remove: "{{ 2 * 24 * 60 * 60 }}"
+condor_system_periodic_hold: '{{ 30 * 24 * 60 * 60 }}'
+condor_system_periodic_remove: '{{ 2 * 24 * 60 * 60 }}'
 condor_network_interface: eth0
 condor_extra: |
   MASTER_UPDATE_INTERVAL = 150
@@ -192,7 +192,7 @@ condor_extra: |
 
 # gxadmin
 postgres_user: galaxy
-postgres_host: "{{ inventory_hostname }}"
+postgres_host: '{{ inventory_hostname }}'
 postgres_port: 5432
 
 # postgres_pass defined in secret_group_vars/all.yml
@@ -206,7 +206,7 @@ galaxy_group:
   name: galaxy
   gid: 999
 galaxy_system_group: galaxy
-galaxy_log_dir: "/var/log/galaxy"
+galaxy_log_dir: '/var/log/galaxy'
 galaxy_layout: root-dir
 galaxy_separate_privileges: true
 galaxy_restart_handler_name: Restart Galaxy
@@ -222,114 +222,115 @@ galaxy_config_perms: 0644
 __galaxy_dir_perms: 0755
 
 galaxy_root: /opt/galaxy
-galaxy_workflow_scheduler_count: "{{ galaxy_systemd_workflow_schedulers }}"
+galaxy_workflow_scheduler_count: '{{ galaxy_systemd_workflow_schedulers }}'
 galaxy_home_dir: /opt/galaxy
-galaxy_mutable_config_dir: "{{ galaxy_root }}/mutable-config"
-galaxy_mutable_data_dir: "{{ galaxy_root }}/mutable-data"
-galaxy_shed_tools_dir: "{{ galaxy_root }}/shed_tools"
-galaxy_tool_data_path: "{{ galaxy_root }}/tool-data"
-__galaxy_shed_tools_dir: "{{ galaxy_shed_tools_dir }}"
+galaxy_mutable_config_dir: '{{ galaxy_root }}/mutable-config'
+galaxy_mutable_data_dir: '{{ galaxy_root }}/mutable-data'
+galaxy_shed_tools_dir: '{{ galaxy_root }}/shed_tools'
+galaxy_tool_data_path: '{{ galaxy_root }}/tool-data'
+__galaxy_shed_tools_dir: '{{ galaxy_shed_tools_dir }}'
 galaxy_backup_configfiles: false
 biotools_content_dir: '{{ galaxy_mutable_data_dir }}/cache/biotools/content'
-galaxy_local_tools_dir: "{{ galaxy_root }}/local_tools"
+galaxy_local_tools_dir: '{{ galaxy_root }}/local_tools'
 
-galaxy_server_dir: "{{ galaxy_root }}/server"
-galaxy_config_dir: "{{ galaxy_root }}/config"
-galaxy_venv_dir: "{{ galaxy_root }}/venv"
+galaxy_server_dir: '{{ galaxy_root }}/server'
+galaxy_config_dir: '{{ galaxy_root }}/config'
+galaxy_venv_dir: '{{ galaxy_root }}/venv'
 galaxy_job_working_directory: "{{ galaxy_config['galaxy']['job_working_directory'] }}"
 ucsc_build_sites:
 
-galaxy_virtualenv_command: "{{ conda_prefix_dir }}/envs/_galaxy_/bin/python -m venv --copies"
-galaxy_nonrepro_tools: "{{ galaxy_root }}/custom-tools"
+galaxy_virtualenv_command: '{{ conda_prefix_dir }}/envs/_galaxy_/bin/python -m venv --copies'
+galaxy_nonrepro_tools: '{{ galaxy_root }}/custom-tools'
 galaxy_nonrepro_commit: master
 
 # Custom override
 # Our galaxy_tool_dependency_dir is on NFS, and permissions are set in such a
 # way that they cannot be changed by the ansible connected user.
 galaxy_dirs:
-  - "{{ galaxy_mutable_data_dir }}"
-  - "{{ galaxy_mutable_config_dir }}"
-  - "{{ galaxy_cache_dir }}"
-  - "{{ galaxy_shed_tools_dir }}"
-  - "{{ galaxy_file_path }}"
-  - "{{ galaxy_job_working_directory }}"
-  - "{{ galaxy_tool_data_path }}"
-  - "{{ galaxy_nonrepro_tools }}"
-  - "{{ galaxy_webhook_dir }}"
-  - "{{ galaxy_tour_dir }}"
-  - "{{ galaxy_log_dir }}"
-  - "{{ galaxy_config_dir }}/total_perspective_vortex"
-  - "{{ tpv_mutable_dir }}"
-  - "{{ galaxy_local_tools_dir }}"
+  - '{{ galaxy_mutable_data_dir }}'
+  - '{{ galaxy_mutable_config_dir }}'
+  - '{{ galaxy_cache_dir }}'
+  - '{{ galaxy_shed_tools_dir }}'
+  - '{{ galaxy_file_path }}'
+  - '{{ galaxy_job_working_directory }}'
+  - '{{ galaxy_tool_data_path }}'
+  - '{{ galaxy_nonrepro_tools }}'
+  - '{{ galaxy_webhook_dir }}'
+  - '{{ galaxy_tour_dir }}'
+  - '{{ galaxy_log_dir }}'
+  - '{{ galaxy_config_dir }}/total_perspective_vortex'
+  - '{{ tpv_mutable_dir }}'
+  - '{{ galaxy_local_tools_dir }}'
 
-galaxy_instance_hostname: "{{ inventory_hostname }}"
+galaxy_instance_hostname: '{{ inventory_hostname }}'
 galaxy_config_style: yaml
 
-galaxy_repo: "https://github.com/usegalaxy-eu/galaxy.git"
-galaxy_commit_id: "release_23.1_europe"
+galaxy_repo: 'https://github.com/usegalaxy-eu/galaxy.git'
+galaxy_commit_id: 'release_24.0_europe'
 galaxy_force_checkout: true # discard any modified files
 
-galaxy_singularity_images_cvmfs_path: "/cvmfs/singularity.galaxyproject.org/all/"
+galaxy_singularity_images_cvmfs_path: '/cvmfs/singularity.galaxyproject.org/all/'
 
-galaxy_config: "{{ galaxy_config_hash }}"
+galaxy_config: '{{ galaxy_config_hash }}'
 
 galaxy_config_file_src_dir: files/galaxy
 galaxy_config_files:
   # TODO(bgruening): sync this with cvmfs? can we have ours be just a small additional builds.txt?
-  - src: "{{ galaxy_config_file_src_dir }}/config/builds.txt"
+  - src: '{{ galaxy_config_file_src_dir }}/config/builds.txt'
     dest: "{{ galaxy_config['galaxy']['builds_file_path'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/data_manager_conf.xml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/data_manager_conf.xml'
     dest: "{{ galaxy_config['galaxy']['data_manager_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/datatypes_conf.xml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/datatypes_conf.xml'
     dest: "{{ galaxy_config['galaxy']['datatypes_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/dependency_resolvers_conf.xml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/dependency_resolvers_conf.xml'
     dest: "{{ galaxy_config['galaxy']['dependency_resolvers_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/email_domain_blocklist.conf"
+  - src: '{{ galaxy_config_file_src_dir }}/config/email_domain_blocklist.conf'
     dest: "{{ galaxy_config['galaxy']['email_domain_blocklist_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/user_preferences_extra_conf.yml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/user_preferences_extra_conf.yml'
     dest: "{{ galaxy_config['galaxy']['user_preferences_extra_conf_path'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/trs_servers_conf.yml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/trs_servers_conf.yml'
     dest: "{{ galaxy_config['galaxy']['trs_servers_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/themes_conf.yml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/themes_conf.yml'
     dest: "{{ galaxy_config['galaxy']['themes_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/error_report.yml"
-    dest: "{{ galaxy_config_dir }}/error_report.yml"
-  - src: "{{ galaxy_config_file_src_dir }}/config/job_metrics_conf.yml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/error_report.yml'
+    dest: '{{ galaxy_config_dir }}/error_report.yml'
+  - src: '{{ galaxy_config_file_src_dir }}/config/job_metrics_conf.yml'
     dest: "{{ galaxy_config['galaxy']['job_metrics_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/tool_sheds_conf.xml"
+  - src: '{{ galaxy_config_file_src_dir }}/config/tool_sheds_conf.xml'
     dest: "{{ galaxy_config['galaxy']['tool_sheds_config_file'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/ucsc_build_sites.txt"
+  - src: '{{ galaxy_config_file_src_dir }}/config/ucsc_build_sites.txt'
     dest: "{{ galaxy_config['galaxy']['ucsc_build_sites'] }}"
-  - src: "{{ galaxy_config_file_src_dir }}/config/echo_main_env.xml"
-    dest: "{{ galaxy_config_dir }}/echo_main_env.xml"
-  - src: "{{ galaxy_config_file_src_dir }}/tpv/tool_defaults.yml"
-    dest: "{{ tpv_mutable_dir }}/tool_defaults.yml"
-  - src: "{{ galaxy_config_file_src_dir }}/tpv/tools.yml"
-    dest: "{{ tpv_mutable_dir }}/tools.yml"
-  - src: "{{ galaxy_config_file_src_dir }}/tpv/destinations.yml"
-    dest: "{{ tpv_mutable_dir }}/destinations.yml"
-
+  - src: '{{ galaxy_config_file_src_dir }}/config/echo_main_env.xml'
+    dest: '{{ galaxy_config_dir }}/echo_main_env.xml'
+  - src: '{{ galaxy_config_file_src_dir }}/tpv/tools.yml'
+    dest: '{{ tpv_mutable_dir }}/tools.yml'
+  - src: '{{ galaxy_config_file_src_dir }}/tpv/destinations.yml'
+    dest: '{{ tpv_mutable_dir }}/destinations.yml'
+  - src: '{{ galaxy_config_file_src_dir }}/tpv/object_store_locations.yml'
+    dest: '{{ tpv_mutable_dir }}/object_store_locations.yml'
 
 galaxy_config_template_src_dir: templates/galaxy
 galaxy_config_templates:
-  - src: "{{ galaxy_config_template_src_dir }}/config/build_sites.yml.j2"
+  - src: '{{ galaxy_config_template_src_dir }}/config/build_sites.yml.j2'
     dest: "{{ galaxy_config['galaxy']['build_sites_config_file'] }}"
-  - src: "{{ galaxy_config_template_src_dir }}/config/job_conf.yml.j2"
-    dest: "{{ galaxy_config_dir }}/job_conf.yml"
-  - src: "{{ galaxy_config_template_src_dir }}/config/container_resolvers_conf.xml.j2"
-    dest: "{{ galaxy_config_dir }}/container_resolvers_conf.xml"
-  - src: "{{ galaxy_config_template_src_dir }}/config/nagios_tool_conf.xml"
-    dest: "{{ galaxy_config_dir }}/nagios_tool_conf.xml"
-  - src: "{{ galaxy_config_template_src_dir }}/config/tool_conf.xml.j2"
-    dest: "{{ galaxy_config_dir }}/tool_conf.xml"
-  - src: "{{ galaxy_config_template_src_dir }}/config/galaxy_workflow_scheduler.j2"
-    dest: "{{ galaxy_config_dir }}/workflow_schedulers_conf.xml"
-  - src: "{{ galaxy_config_template_src_dir }}/config/file_sources_conf.yml.j2"
-    dest: "{{ galaxy_config_dir }}/file_sources_conf.yml"
-  - src: "{{ galaxy_config_template_src_dir }}/config/object_store_conf.xml.j2"
+  - src: '{{ galaxy_config_template_src_dir }}/config/job_conf.yml.j2'
+    dest: '{{ galaxy_config_dir }}/job_conf.yml'
+  - src: '{{ galaxy_config_template_src_dir }}/config/container_resolvers_conf.xml.j2'
+    dest: '{{ galaxy_config_dir }}/container_resolvers_conf.xml'
+  - src: '{{ galaxy_config_template_src_dir }}/config/nagios_tool_conf.xml'
+    dest: '{{ galaxy_config_dir }}/nagios_tool_conf.xml'
+  - src: '{{ galaxy_config_template_src_dir }}/config/tool_conf.xml.j2'
+    dest: '{{ galaxy_config_dir }}/tool_conf.xml'
+  - src: '{{ galaxy_config_template_src_dir }}/config/galaxy_workflow_scheduler.j2'
+    dest: '{{ galaxy_config_dir }}/workflow_schedulers_conf.xml'
+  - src: '{{ galaxy_config_template_src_dir }}/config/file_sources_conf.yml.j2'
+    dest: '{{ galaxy_config_dir }}/file_sources_conf.yml'
+  - src: '{{ galaxy_config_template_src_dir }}/config/object_store_conf.xml.j2'
     dest: "{{ galaxy_config['galaxy']['object_store_config_file'] }}"
-  - src: "{{ galaxy_config_template_src_dir }}/config/pulsar_app.yml"
-    dest: "{{ galaxy_config_dir }}/pulsar_app.yml"
+  - src: '{{ galaxy_config_template_src_dir }}/config/pulsar_app.yml'
+    dest: '{{ galaxy_config_dir }}/pulsar_app.yml'
+  - src: '{{ galaxy_config_file_src_dir }}/tpv/tool_defaults.yml.j2'
+    dest: '{{ tpv_mutable_dir }}/tool_defaults.yml'
   # - src: "{{ galaxy_config_template_src_dir }}/config/welcome.html"
   #   dest: "{{ galaxy_mutable_config_dir }}/welcome.html"
 
@@ -338,9 +339,9 @@ galaxy_additional_venv_packages:
   - redis
   - flower
 
-celery_root_dir: "{{ galaxy_root }}/celery"
+celery_root_dir: '{{ galaxy_root }}/celery'
 galaxy_systemd_celery: true
-galaxy_systemd_celery_beat_schedule_path: "{{ celery_root_dir }}/celery-beat-schedule"
+galaxy_systemd_celery_beat_schedule_path: '{{ celery_root_dir }}/celery-beat-schedule'
 galaxy_systemd_watchdog: true
 galaxy_systemd_memory_limit_celery_internal: 1
 galaxy_systemd_memory_limit_celery_external: 1
@@ -349,50 +350,50 @@ galaxy_systemd_memory_limit_celery_beat: 1
 # The sum of autoscale max * workers for internal and external should not exceed your CPUs
 galaxy_systemd_celery_internal_workers: 1
 galaxy_systemd_celery_internal_concurrency: 1
-galaxy_systemd_celery_internal_autoscale: "1,1"
+galaxy_systemd_celery_internal_autoscale: '1,1'
 galaxy_systemd_celery_internal_max_tasks: 1
 
 # Worker for external queue
 galaxy_systemd_celery_external_workers: 1
 galaxy_systemd_celery_external_concurrency: 1
-galaxy_systemd_celery_external_autoscale: "1,1"
+galaxy_systemd_celery_external_autoscale: '1,1'
 galaxy_systemd_celery_external_max_tasks: 1
 
 flower_python_version: python3.8
-flower_app_dir: "{{ galaxy_root }}"
+flower_app_dir: '{{ galaxy_root }}'
 flower_log_file: /var/log/flower
-flower_python_path: "{{ galaxy_root }}/server/lib"
-flower_venv_dir: "{{ galaxy_venv_dir }}"
-flower_db_file: "{{ celery_root_dir }}/flower.db"
+flower_python_path: '{{ galaxy_root }}/server/lib'
+flower_venv_dir: '{{ galaxy_venv_dir }}'
+flower_db_file: '{{ celery_root_dir }}/flower.db'
 flower_app_name: galaxy.celery
 flower_persistent: true
-flower_broker_api: "https://flower:{{ rabbitmq_password_flower }}@mqesginstance.esgwps.uno/api/"
-flower_broker_url: "amqp://flower:{{ rabbitmq_password_flower }}@mqesginstance.esgwps.uno:5671/galaxy?ssl=true"
+flower_broker_api: 'https://flower:{{ rabbitmq_password_flower }}@mqesginstance.esgwps.uno/api/'
+flower_broker_url: 'amqp://flower:{{ rabbitmq_password_flower }}@mqesginstance.esgwps.uno:5671/galaxy?ssl=true'
 flower_proxy_prefix: /flower
 flower_ui_users:
   - name: admin
-    password: "{{ flower_user_password }}"
+    password: '{{ flower_user_password }}'
 flower_environment_variables:
-  GALAXY_CONFIG_FILE: "{{ galaxy_config_file }}"
+  GALAXY_CONFIG_FILE: '{{ galaxy_config_file }}'
 
 # Local Galaxy tools
 galaxy_local_tools:
   - plink.xml
 
 # Role: tpv_metascheduler_api
-tpv_metascheduler_api_dir: "/opt/tpv_metascheduler_api"
-tpv_metascheduler_api_repo: "https://github.com/usegalaxy-eu/tpv-metascheduler-api.git"
-tpv_metascheduler_api_commit_id: "main"
+tpv_metascheduler_api_dir: '/opt/tpv_metascheduler_api'
+tpv_metascheduler_api_repo: 'https://github.com/usegalaxy-eu/tpv-metascheduler-api.git'
+tpv_metascheduler_api_commit_id: 'main'
 tpv_metascheduler_api_force_checkout: true # discards local changes if any
-tpv_metascheduler_api_venv_dir: "/opt/tpv_metascheduler_api/venv"
-tpv_metascheduler_api_virtualenv_command: "{{ galaxy_virtualenv_command }}"
-tpv_metascheduler_api_systemd_service_name: "tpv_metascheduler_api"
-tpv_metascheduler_api_systemd_service_user: "nginx"
-tpv_metascheduler_api_ssl_certificate: "{{ nginx_conf_ssl_certificate }}"
-tpv_metascheduler_api_ssl_certificate_key: "{{ nginx_conf_ssl_certificate_key }}"
+tpv_metascheduler_api_venv_dir: '/opt/tpv_metascheduler_api/venv'
+tpv_metascheduler_api_virtualenv_command: '{{ galaxy_virtualenv_command }}'
+tpv_metascheduler_api_systemd_service_name: 'tpv_metascheduler_api'
+tpv_metascheduler_api_systemd_service_user: 'nginx'
+tpv_metascheduler_api_ssl_certificate: '{{ nginx_conf_ssl_certificate }}'
+tpv_metascheduler_api_ssl_certificate_key: '{{ nginx_conf_ssl_certificate_key }}'
 tpv_metascheduler_api_nginx_conf: true
 tpv_metascheduler_api_proxy_config:
-  location: "/tpv-api/"
-  proxy_pass_host: "127.0.0.1"
+  location: '/tpv-api/'
+  proxy_pass_host: '127.0.0.1'
   proxy_pass_port: 8000
-  proxy_pass_protocol: "https"
+  proxy_pass_protocol: 'https'

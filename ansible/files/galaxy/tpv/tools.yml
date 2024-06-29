@@ -9,17 +9,17 @@ tools:
       - id: no-pulsar
         if: user is not None
         execute: |
-            from tpv.core.entities import Tag, TagSetManager, TagType
+          from tpv.core.entities import Tag, TagSetManager, TagType
 
-            user_preferences = user.extra_preferences
-            pulsar_tag = user_preferences.get("distributed_compute|remote_resources", "None")
-            pulsar_tag = Tag("scheduling", pulsar_tag, TagType.REQUIRE) if pulsar_tag != "None" else None
+          user_preferences = user.extra_preferences
+          pulsar_tag = user_preferences.get("distributed_compute|remote_resources", "None")
+          pulsar_tag = Tag("scheduling", pulsar_tag, TagType.REQUIRE) if pulsar_tag != "None" else None
 
-            entity.tpv_tags.tags = [
-                tag
-                for tag in entity.tpv_tags.tags
-                if tag != pulsar_tag
-            ]
+          entity.tpv_tags.tags = [
+              tag
+              for tag in entity.tpv_tags.tags
+              if tag != pulsar_tag
+          ]
     env:
       TEMP: /data/galaxy_data/galaxy_db/tmp
 
@@ -33,6 +33,53 @@ tools:
     rules:
       - if: input_size >= 0.01
         cores: 3
-    # scheduling:
-    #   require:
-    #     - pulsar_tpv
+    # rank: |
+    #   import requests
+    #   import json
+    #   import pathlib
+    #   from ruamel.yaml import YAML
+    #   from galaxy import model
+
+    #   # NOTE: currently object store info is stored in a yaml
+    #   objectstore_loc_path = "/opt/galaxy/config/total_perspective_vortex/object_store_locations.yml"
+    #   log.debug("JOB ATTR")
+    #   dataset_attributes = helpers.get_dataset_attributes(job.input_datasets)
+    #   log.debug("-------------------ATTR-------------------")
+    #   log.debug(dataset_attributes)
+
+    #   yaml=YAML(typ='safe')
+    #   objectstore_file = pathlib.Path(objectstore_loc_path)
+    #   objectstore_dict = yaml.load(objectstore_file)
+
+    #   # Define the URL of your FastAPI application
+    #   api_url = "https://usegalaxy.esgwps.uno/tpv-api/process_destinations"
+
+    #   candidate_destinations_list = []
+    #   for dest in candidate_destinations:
+    #     dest_dict = dest.to_dict()
+    #     dest_dict["queued_job_count"] = app.model.context.query(model.Job).filter(model.Job.state == "queued", model.Job.destination_id == dest.dest_name).count()
+    #     candidate_destinations_list.append(dest_dict)
+
+    #   log.debug("-------------------DESTINATION_QUEUED_JOB_COUNT-------------------")
+    #   log.debug(f"candidate_destinations_list: {candidate_destinations_list}")
+
+    #   input_data = {
+    #     "destinations": candidate_destinations_list,
+    #     "objectstores": objectstore_dict,
+    #     "dataset_attributes": dataset_attributes
+    #   }
+
+    #   # Send a POST request to the API endpoint
+    #   response = requests.post(api_url, json=input_data)
+
+    #   # Check if the request was successful (status code 200)
+    #   if response.status_code == 200:
+    #     result = response.json()
+    #     sorted_destination_ids = result["sorted_destinations"]
+    #     log.debug("-------------------RESULT-------------------")
+    #     log.debug(result)
+    #   else:
+    #     log.debug(f"Request failed with status code {response.status_code}: {response.text}")
+
+    #   sorted_candidate_destinations = sorted(candidate_destinations, key=lambda x: sorted_destination_ids.index(x.id))
+    #   sorted_candidate_destinations

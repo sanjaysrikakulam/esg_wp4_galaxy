@@ -1,23 +1,23 @@
 [galaxy_instance]
-galaxyesginstance.esgwps.uno ansible_host=192.52.44.128
+galaxyesginstance.esgwps.uno ansible_host=132.230.224.103
 
 [dbserver:children]
 galaxy_instance
 
 [mq_server]
-mqesginstance.esgwps.uno ansible_host=192.52.40.130
+mqesginstance.esgwps.uno ansible_host=132.230.224.68
 
 [upload_server]
-uploadesginstance.esgwps.uno ansible_host=192.52.44.123
+uploadesginstance.esgwps.uno ansible_host=132.230.224.122
 
 [nfs_server]
-nfsesginstance.esgwps.uno ansible_host=192.52.43.233
+nfsesginstance.esgwps.uno ansible_host=132.230.224.180
 
 [compute_workers]
-computeworker0.esgwps.uno ansible_host=192.52.40.80
+computeworker0.esgwps.uno ansible_host=132.230.224.162
 
 [pulsar01]
-pulsar01.esgwps.uno ansible_host=192.52.44.223
+pulsar01.esgwps.uno ansible_host=132.230.224.179
 
 [all:vars]
 ansible_ssh_user=rocky

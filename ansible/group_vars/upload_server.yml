@@ -15,7 +15,7 @@ autofs_mount_points:
   - data
 autofs_conf_files:
   data:
-    - galaxy_data      -rw,hard,nosuid      192.52.43.233:/nfs_shares/&
+    - galaxy_data      -rw,hard,nosuid      132.230.224.180:/nfs_shares/&
 
 # Role: usegalaxy_eu.handy.os_setup
 enable_hostname: true
@@ -29,13 +29,13 @@ software_groups_to_install:
   - editors
   - utils
 handy_users:
-  - user_name: "{{ galaxy_user.name }}"
-    user_uid: "{{ galaxy_user.uid }}"
-    user_group: "{{ galaxy_group.name }}"
-    user_comment: "rustus Service-Acct"
+  - user_name: '{{ galaxy_user.name }}'
+    user_uid: '{{ galaxy_user.uid }}'
+    user_group: '{{ galaxy_group.name }}'
+    user_comment: 'rustus Service-Acct'
 handy_groups:
-  - group_name: "{{ galaxy_group.name }}"
-    group_gid: "{{ galaxy_group.gid }}"
+  - group_name: '{{ galaxy_group.name }}'
+    group_gid: '{{ galaxy_group.gid }}'
 
 ## kernel_5
 kernel_5_package: kernel-ml

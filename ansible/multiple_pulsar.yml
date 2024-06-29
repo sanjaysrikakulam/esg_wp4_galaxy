@@ -1,0 +1,73 @@
+---
+- hosts: pulsar_host
+  become: true
+  become_user: root
+  tasks:
+    block:
+      - name: Check if the new Pulsars conf directory already exists
+        stat:
+          path: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}"
+        register: pulsar_conf_dir
+
+      - name: Step 1 - Create a copy of Pulsar configuration files
+        copy:
+          src: "{{ default_pulsar_conf_dir }}/{{ default_pulsar_conf_dir_name }}"
+          dest: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}"
+        when: pulsar_conf_dir.stat.exists == False
+
+      - name: Step 2.1 - Edit Pulsar configuration files
+        ini_file:
+          path: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}/server.ini"
+          section: 'app:main'
+          option: app_config
+          value: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}/app.yml"
+
+      - name: Step 2.2 - Edit AMQP in Pulsar app.yml
+        replace:
+          path: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}/app.yml"
+          regexp: 'message_queue_url:.+'
+          replace: "message_queue_url: pyamqp://{{ item.amqp_username }}:{{ item.amqp_password }}@{{ item.amqp_host }}:{{ item.amqp_port }}//{{ item.amqp_queue }}?ssl=1"
+
+      - name: Step 2.3 - Edit persistence dir in Pulsar app.yml
+        replace:
+          path: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}/app.yml"
+          regexp: 'persistence_directory:.+'
+          replace: "persistence_directory: {{ item.persistence_dir }}"
+
+      - name: Step 2.4 - Edit staging dir in Pulsar app.ym        replace:
+          path: "{{ default_pulsar_conf_dir }}/{{ item.pulsar_name }}/app.yml"
+          regexp: 'staging_directory :.+'
+          replace: "staging_directory : {{ item.staging_dir }}"
+
+      - name: Step 3.1 - Create a copy of Pulsar systemd service file
+        copy:
+          src: "{{ default_pulsar_systemd_file }}"
+          dest: "/etc/systemd/system/{{ item.pulsar_name }}.service"
+
+      - name: Step 3.2 - Edit Pulsar systemd service file (Description)
+        lineinfile:
+          path: /etc/systemd/system/pulsar2.service
+          regexp: '^(Description=)'
+          line: "Description={{ item.pulsar_name }}"
+        when: "'Description=Pulsar2' not in ansible_facts['ansible_distribution_version']"  # Skip if already updated
+
+      - name: Step 3.3 - Edit Pulsar systemd service file (ExecStart)
+        lineinfile:
+          path: "/etc/systemd/system/{{ item.pulsar_name }}.service"
+          regexp: '^(ExecStart=)'
+          line: "ExecStart={{ pulsar_venv }}/bin/pulsar -c {{ default_pulsar_conf_dir }}/{{ item.pulsar_name }} -m webless"
+
+      - name: Enable and start new Pulsar service
+        systemd:
+          name: "{{ item.pulsar_name }}"
+          state: started
+          enabled: yes
+        notify:
+          - Reload systemd daemon
+    loop: "{{ multiple_pulsar_conf }}"
+
+  handlers:
+    - name: Reload systemd daemon
+      systemd:
+        name: ''
+        state: reloaded

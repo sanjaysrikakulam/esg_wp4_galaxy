@@ -8,26 +8,26 @@ software_groups_to_install:
   - utils
 
 postgresql_objects_users:
-  - name: "{{ _galaxy_db_user }}"
-    password: "{{ _galaxy_db_pass }}"
+  - name: '{{ _galaxy_db_user }}'
+    password: '{{ _galaxy_db_pass }}'
 postgresql_objects_databases:
-  - name: "{{ _galaxy_db_name }}"
-    owner: "{{ _galaxy_db_user }}"
+  - name: '{{ _galaxy_db_name }}'
+    owner: '{{ _galaxy_db_user }}'
 
 # PostgreSQL
 postgresql_conf:
   - listen_addresses: "'*'"
   - max_connections: 128
-  - shared_buffers: "1GB"
-  - temp_buffers: "64MB"
+  - shared_buffers: '1GB'
+  - temp_buffers: '64MB'
   - max_prepared_transactions: 100
-  - work_mem: "64MB"
-  - maintenance_work_mem: "64MB"
+  - work_mem: '64MB'
+  - maintenance_work_mem: '64MB'
   - checkpoint_completion_target: 0.9
   - random_page_cost: 1.0
-  - effective_cache_size: "1GB"
-  - log_checkpoints: "on"
+  - effective_cache_size: '1GB'
+  - log_checkpoints: 'on'
   - log_min_duration_statement: 500
 postgresql_pg_hba_conf:
-  - "host    postgres        galaxy          192.52.44.128/21      md5"
-  - "host    galaxy          galaxy          192.52.44.128/21      md5"
+  - 'host    postgres        galaxy          132.230.224.103/21      md5'
+  - 'host    galaxy          galaxy          132.230.224.103/21      md5'

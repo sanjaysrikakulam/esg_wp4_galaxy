@@ -3,20 +3,20 @@ base_app_main: &BASE_APP_MAIN
   # The directory that will be prepended to relative paths in options
   # specifying other Galaxy config files (e.g. datatypes_config_file).
   # Defaults to the directory in which galaxy.yml is located.
-  config_dir: "{{ galaxy_config_dir }}"
+  config_dir: '{{ galaxy_config_dir }}'
 
   # The directory that will be prepended to relative paths in options
   # specifying config files controlled by Galaxy (such as
   # shed_tool_config_file, etc.). Must be writable by the user running
   # Galaxy.  Defaults to `<config_dir>/` if running Galaxy from source
   # or `<data_dir>/config` otherwise.
-  managed_config_dir: "{{ galaxy_mutable_config_dir }}"
+  managed_config_dir: '{{ galaxy_mutable_config_dir }}'
 
   # The directory that will be prepended to relative paths in options
   # specifying Galaxy data/cache directories and files (such as the
   # default SQLite database, file_path, etc.). Defaults to `database/`
   # if running Galaxy from source or `<config_dir>/data` otherwise.
-  data_dir: "{{ galaxy_mutable_data_dir }}"
+  data_dir: '{{ galaxy_mutable_data_dir }}'
 
   # The directory containing custom templates for Galaxy, such as
   # HTML/text email templates. Defaults to 'templates'. Default
@@ -46,7 +46,7 @@ base_app_main: &BASE_APP_MAIN
   # should use the "install_database_engine_option_" prefix.
   # For more options, please check SQLAlchemy's documentation at
   # https://docs.sqlalchemy.org/en/14/core/engines.html?highlight=create_engine#sqlalchemy.create_engine
-  database_connection: "{{ galaxy_db_connection }}"
+  database_connection: '{{ galaxy_db_connection }}'
 
   # If the server logs errors about not having enough database pool
   # connections, you will want to increase these values, or consider
@@ -174,7 +174,7 @@ base_app_main: &BASE_APP_MAIN
   # tool_config_file cannot be read.
   # The value of this option will be resolved with respect to
   # <managed_config_dir>.
-  shed_tool_config_file: "{{ galaxy_shed_tool_conf_file }}"
+  shed_tool_config_file: '{{ galaxy_shed_tool_conf_file }}'
 
   # This option is deprecated. In previous releases this file was
   # maintained by tool migration scripts that are no longer part of the
@@ -191,7 +191,7 @@ base_app_main: &BASE_APP_MAIN
   # create it.
   # The value of this option will be resolved with respect to
   # <managed_config_dir>.
-  integrated_tool_panel_config: "{{ galaxy_mutable_config_dir }}/integrated_tool_panel.xml"
+  integrated_tool_panel_config: '{{ galaxy_mutable_config_dir }}/integrated_tool_panel.xml'
 
   # Default path to the directory containing the tools defined in
   # tool_conf.xml. Other tool config files must include the tool_path as
@@ -208,7 +208,7 @@ base_app_main: &BASE_APP_MAIN
   # will fail.
   # The value of this option will be resolved with respect to
   # <data_dir>.
-  tool_dependency_dir: /usr/local/tools
+  tool_dependency_dir: /data/twd01/tools/
 
   # Specifies the path to the standalone dependency resolvers
   # configuration file. This configuration can now be specified directly
@@ -216,23 +216,23 @@ base_app_main: &BASE_APP_MAIN
   # 'dependency_resolvers' option for details.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  dependency_resolvers_config_file: "{{ galaxy_config_dir }}/dependency_resolvers_conf.xml"
+  dependency_resolvers_config_file: '{{ galaxy_config_dir }}/dependency_resolvers_conf.xml'
 
   # conda_prefix is the location on the filesystem where Conda packages
   # and environments are installed.
   # Sample default '<tool_dependency_dir>/_conda'
-  conda_prefix: "{{ conda_prefix_dir }}"
+  conda_prefix: '{{ conda_prefix_dir }}'
 
   # Override the Conda executable to use, it will default to the one on
   # the PATH (if available) and then to <conda_prefix>/bin/conda
-  conda_exec: "{{ conda_prefix_dir }}/bin/conda"
+  conda_exec: '{{ conda_prefix_dir }}/bin/conda'
 
   # Pass debug flag to conda commands.
   # conda_debug: false
 
   # conda channels to enable by default
   # (https://conda.io/docs/user-guide/tasks/manage-channels.html)
-  conda_ensure_channels: "conda-forge,bioconda"
+  conda_ensure_channels: 'conda-forge,bioconda'
 
   # Use locally-built conda packages.
   # conda_use_local: false
@@ -296,7 +296,7 @@ base_app_main: &BASE_APP_MAIN
   # not exist).
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  tool_sheds_config_file: "{{ galaxy_config_dir }}/tool_sheds_conf.xml"
+  tool_sheds_config_file: '{{ galaxy_config_dir }}/tool_sheds_conf.xml'
 
   # Monitor the tools and tool directories listed in any tool config
   # file specified in tool_config_file option.  If changes are found,
@@ -336,7 +336,7 @@ base_app_main: &BASE_APP_MAIN
   # external tooling.
   # The value of this option will be resolved with respect to
   # <cache_dir>.
-  short_term_storage_dir: "/data/twd01/short_term_web_storage"
+  short_term_storage_dir: '/data/twd01/short_term_web_storage'
 
   # Default duration before short term web storage files will be cleaned
   # up by Galaxy tasks (in seconds). The default duration is 1 day.
@@ -372,7 +372,7 @@ base_app_main: &BASE_APP_MAIN
   # If this is set to None, the default container resolvers loaded is
   # determined by enable_mulled_containers. For available options see
   # https://docs.galaxyproject.org/en/master/admin/container_resolvers.htmlcontainers_resolvers_config_file
-  container_resolvers_config_file: "{{ galaxy_config_dir }}/container_resolvers_conf.xml"
+  container_resolvers_config_file: '{{ galaxy_config_dir }}/container_resolvers_conf.xml'
 
   # Rather than specifying a container_resolvers_config_file, the
   # definition of the resolvers to enable can be embedded into Galaxy's
@@ -430,17 +430,17 @@ base_app_main: &BASE_APP_MAIN
   # up.
   # The value of this option will be resolved with respect to
   # <managed_config_dir>.
-  shed_tool_data_table_config: "{{ galaxy_mutable_config_dir }}/shed_tool_data_table_conf.xml"
+  shed_tool_data_table_config: '{{ galaxy_mutable_config_dir }}/shed_tool_data_table_conf.xml'
 
   # Directory where data used by tools is located.  See the samples in
   # that directory and the Galaxy Community Hub for help:
   # https://galaxyproject.org/admin/data-integration
-  tool_data_path: "{{ galaxy_root }}/tool-data"
+  tool_data_path: '{{ galaxy_root }}/tool-data'
 
   # Directory where Tool Data Table related files will be placed when
   # installed from a ToolShed. Defaults to the value of the
   # 'tool_data_path' option.
-  shed_tool_data_path: "{{ galaxy_root }}/tool-data/"
+  shed_tool_data_path: '{{ galaxy_root }}/tool-data/'
 
   # Monitor the tool_data and shed_tool_data_path directories. If
   # changes in tool data table files are found, the tool data tables for
@@ -462,12 +462,12 @@ base_app_main: &BASE_APP_MAIN
   # display applications and the URL to those sites.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  build_sites_config_file: "{{ galaxy_config_dir }}/build_sites.yml"
+  build_sites_config_file: '{{ galaxy_config_dir }}/build_sites.yml'
 
   # File containing old-style genome builds.
   # The value of this option will be resolved with respect to
   # <tool_data_path>.
-  builds_file_path: "{{ galaxy_config_dir }}/builds.txt"
+  builds_file_path: '{{ galaxy_config_dir }}/builds.txt'
 
   # Directory where chrom len files are kept, currently mainly used by
   # trackster.
@@ -482,7 +482,7 @@ base_app_main: &BASE_APP_MAIN
   # one file).
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  datatypes_config_file: "{{ galaxy_config_dir }}/datatypes_conf.xml"
+  datatypes_config_file: '{{ galaxy_config_dir }}/datatypes_conf.xml'
 
   # Enable sniffing of compressed datatypes. This can be
   # configured/overridden on a per-datatype basis in the
@@ -505,7 +505,7 @@ base_app_main: &BASE_APP_MAIN
   # specified here. The path is relative to the Galaxy root dir.  To use
   # an absolute path begin the path with '/'.  This is a comma-separated
   # list.
-  tour_config_dir: "config/plugins/tours,{{ galaxy_tour_dir }}"
+  tour_config_dir: 'config/plugins/tours,{{ galaxy_tour_dir }}'
 
   # Webhooks directory: where to store webhooks - plugins to extend the
   # Galaxy UI. By default none will be loaded.  Set to
@@ -513,7 +513,7 @@ base_app_main: &BASE_APP_MAIN
   # an absolute path begin the path with '/'.  This is a comma-separated
   # list. Add test/functional/webhooks to this list to include the demo
   # webhooks used to test the webhook framework.
-  webhooks_dir: "config/plugins/webhooks,{{ galaxy_webhook_dir }}"
+  webhooks_dir: 'config/plugins/webhooks,{{ galaxy_webhook_dir }}'
 
   # Each job is given a unique empty directory as its current working
   # directory. This option defines in what parent directory those
@@ -684,7 +684,7 @@ base_app_main: &BASE_APP_MAIN
   # it overrides any other objectstore settings.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  object_store_config_file: "{{ galaxy_config_dir }}/object_store_conf.xml"
+  object_store_config_file: '{{ galaxy_config_dir }}/object_store_conf.xml'
 
   # Specify where cache monitoring is driven for caching object stores
   # such as S3, Azure, and iRODS. This option has no affect on disk
@@ -777,7 +777,7 @@ base_app_main: &BASE_APP_MAIN
   # and tool error reports.  We recommend using a string in the
   # following format: Galaxy Project <galaxy-no-reply@example.com>. If
   # not configured, '<galaxy-no-reply@HOSTNAME>' will be used.
-  email_from: "ESG Galaxy test instance <esg-galaxy-no-reply@informatik.uni-freiburg.de>"
+  email_from: 'ESG Galaxy test instance <esg-galaxy-no-reply@informatik.uni-freiburg.de>'
 
   # This text will be inserted at the end of the activation email's
   # message, before the 'Your Galaxy Team' signature.
@@ -786,7 +786,7 @@ base_app_main: &BASE_APP_MAIN
   # URL of the support resource for the galaxy instance.  Used in
   # activation emails.
   # Example value 'https://galaxyproject.org/'
-  instance_resource_url: "https://galaxyproject.org/support"
+  instance_resource_url: 'https://galaxyproject.org/support'
 
   # E-mail domains blocklist is used for filtering out users that are
   # using disposable email addresses at registration.  If their
@@ -796,7 +796,7 @@ base_app_main: &BASE_APP_MAIN
   # Example value 'email_blocklist.conf'
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  email_domain_blocklist_file: "{{ galaxy_config_dir }}/email_domain_blocklist.conf"
+  email_domain_blocklist_file: '{{ galaxy_config_dir }}/email_domain_blocklist.conf'
 
   # E-mail domains allowlist is used to specify allowed email address
   # domains. If the list is non-empty and a user attempts registration
@@ -823,7 +823,7 @@ base_app_main: &BASE_APP_MAIN
   # activation is disabled (i.e. accounts are active since
   # registration). The activation is also not working in case the SMTP
   # server is not defined.
-  user_activation_on: "False"
+  user_activation_on: 'False'
 
   # Activation grace period (in hours).  Activation is not forced (login
   # is not disabled) until grace period has passed.  Users under grace
@@ -921,7 +921,7 @@ base_app_main: &BASE_APP_MAIN
   # Map for interactivetool proxy.
   # The value of this option will be resolved with respect to
   # <data_dir>.
-  interactivetools_map: "{{ galaxy_mutable_data_dir }}/interactivetools_map.sqlite"
+  interactivetools_map: '{{ galaxy_mutable_data_dir }}/interactivetools_map.sqlite'
 
   # Prefix to use in the formation of the subdomain or path for
   # interactive tools
@@ -977,13 +977,13 @@ base_app_main: &BASE_APP_MAIN
   # just Dockstore will be used.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  trs_servers_config_file: "{{ galaxy_config_dir }}/trs_servers_conf.yml"
+  trs_servers_config_file: '{{ galaxy_config_dir }}/trs_servers_conf.yml'
 
   # Location of the configuration file containing extra user
   # preferences.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  user_preferences_extra_conf_path: "{{ galaxy_config_dir }}/user_preferences_extra_conf.yml"
+  user_preferences_extra_conf_path: '{{ galaxy_config_dir }}/user_preferences_extra_conf.yml'
 
   # Default localization for Galaxy UI. Allowed values are listed at the
   # end of client/src/nls/locale.js. With the default value (auto), the
@@ -1003,7 +1003,7 @@ base_app_main: &BASE_APP_MAIN
   # with Galaxy via the API.
   # If you plan to run Interactive Tools make sure the docker container
   # can reach this URL.
-  galaxy_infrastructure_url: "https://usegalaxy.esgwps.uno"
+  galaxy_infrastructure_url: 'https://usegalaxy.esgwps.uno'
 
   # If the above URL cannot be determined ahead of time in dynamic
   # environments but the port which should be used to access Galaxy can
@@ -1028,7 +1028,7 @@ base_app_main: &BASE_APP_MAIN
   # logo_src_secondary: null
 
   # The URL linked by the "Galaxy Help" link in the "Help" menu.
-  helpsite_url: "https://help.galaxyproject.org/c/usegalaxy-eu-support"
+  helpsite_url: 'https://help.galaxyproject.org/c/usegalaxy-eu-support'
 
   # The URL linked by the "Community Hub" link in the "Help" menu.
   # wiki_url: https://galaxyproject.org/
@@ -1141,36 +1141,36 @@ base_app_main: &BASE_APP_MAIN
   # proxy in front of Galaxy - please ensure this header remains intact
   # to protect your users.  Uncomment and leave empty to not set the
   # `X-Frame-Options` header.
-  x_frame_options: ""
+  x_frame_options: ''
 
   # nginx can also handle file uploads (user-to-Galaxy) via
   # nginx_upload_module. Configuration for this is complex and explained
   # in detail in the documentation linked above.  The upload store is a
   # temporary directory in which files uploaded by the upload module
   # will be placed.
-  nginx_upload_store: "/data/twd01/nginx_upload/main/uploads"
+  nginx_upload_store: '/data/twd01/nginx_upload/main/uploads'
 
   # This value overrides the action set on the file upload form, e.g.
   # the web path where the nginx_upload_module has been configured to
   # intercept upload requests.
-  nginx_upload_path: "/_upload"
+  nginx_upload_path: '/_upload'
 
   # Galaxy can also use nginx_upload_module to receive files staged out
   # upon job completion by remote job runners (i.e. Pulsar) that
   # initiate staging operations on the remote end.  See the Galaxy nginx
   # documentation for the corresponding nginx configuration.
-  nginx_upload_job_files_store: "/data/twd01/nginx_upload/main/jobfiles"
+  nginx_upload_job_files_store: '/data/twd01/nginx_upload/main/jobfiles'
 
   # Galaxy can also use nginx_upload_module to receive files staged out
   # upon job completion by remote job runners (i.e. Pulsar) that
   # initiate staging operations on the remote end.  See the Galaxy nginx
   # documentation for the corresponding nginx configuration.
-  nginx_upload_job_files_path: "/_job_files"
+  nginx_upload_job_files_path: '/_job_files'
 
   # The upload store is a temporary directory in which files uploaded by
   # the tus middleware or server will be placed. Defaults to
   # new_file_path if not set.
-  tus_upload_store: "/data/galaxy_data/tus_upload/main"
+  tus_upload_store: '/data/galaxy_data/tus_upload/main'
 
   # Galaxy can upload user files in chunks without using nginx. Enable
   # the chunk uploader by specifying a chunk size larger than 0. The
@@ -1384,7 +1384,7 @@ base_app_main: &BASE_APP_MAIN
 
   # Heartbeat log filename. Can accept the template variables
   # {server_name} and {pid}
-  heartbeat_log: "{{ galaxy_log_dir }}/heartbeat_{server_name}_{pid}.log"
+  heartbeat_log: '{{ galaxy_log_dir }}/heartbeat_{server_name}_{pid}.log'
 
   # Log to Sentry Sentry is an open source logging and error aggregation
   # platform.  Setting sentry_dsn will enable the Sentry middleware and
@@ -1413,7 +1413,7 @@ base_app_main: &BASE_APP_MAIN
   # configured statsd instance.  The statsd_prefix is useful if you are
   # running multiple Galaxy instances and want to segment statistics
   # between them within the same aggregator.
-  statsd_host: "127.0.0.1"
+  statsd_host: '127.0.0.1'
 
   # Log to statsd Statsd is an external statistics aggregator
   # (https://github.com/etsy/statsd) Enabling the following options will
@@ -1429,7 +1429,7 @@ base_app_main: &BASE_APP_MAIN
   # configured statsd instance.  The statsd_prefix is useful if you are
   # running multiple Galaxy instances and want to segment statistics
   # between them within the same aggregator.
-  statsd_prefix: "galaxy_page_timings"
+  statsd_prefix: 'galaxy_page_timings'
 
   # If you are using telegraf to collect these metrics and then sending
   # them to InfluxDB, Galaxy can provide more nicely tagged metrics.
@@ -1570,7 +1570,7 @@ base_app_main: &BASE_APP_MAIN
   # One simple way to generate a value for this is with the shell
   # command:   python -c 'from __future__ import print_function; import
   # time; print(time.time())' | md5sum | cut -f 1 -d ' '
-  id_secret: "{{ id_secret }}"
+  id_secret: '{{ id_secret }}'
 
   # User authentication can be delegated to an upstream proxy server
   # (usually Apache).  The upstream proxy should set a REMOTE_USER
@@ -1626,7 +1626,7 @@ base_app_main: &BASE_APP_MAIN
   # Admin section of the server, and will have access to create users,
   # groups, roles, libraries, and more.  For more information, see:
   # https://galaxyproject.org/admin/
-  admin_users: "bjoern.gruening@gmail.com,kuntzm@informatik.uni-freiburg.de,srikakus@informatik.uni-freiburg.de,dominguj@informatik.uni-freiburg.de"
+  admin_users: 'bjoern.gruening@gmail.com,kuntzm@informatik.uni-freiburg.de,srikakus@informatik.uni-freiburg.de,nicotri@infn.it'
 
   # Force everyone to log in (disable anonymous access).
   require_login: true
@@ -1954,7 +1954,7 @@ base_app_main: &BASE_APP_MAIN
   # configuration.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  job_metrics_config_file: "{{ galaxy_config_dir }}/job_metrics_conf.yml"
+  job_metrics_config_file: '{{ galaxy_config_dir }}/job_metrics_conf.yml'
 
   # This option allows users to see the job metrics (except for
   # environment variables).
@@ -1970,7 +1970,7 @@ base_app_main: &BASE_APP_MAIN
   # does not exist).
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  data_manager_config_file: "{{ galaxy_config_dir }}/data_manager_conf.xml"
+  data_manager_config_file: '{{ galaxy_config_dir }}/data_manager_conf.xml'
 
   # File where Tool Shed based Data Managers are configured. This file
   # will be created automatically upon data manager installation.
@@ -1994,7 +1994,7 @@ base_app_main: &BASE_APP_MAIN
   # configuration file or the <job_config> option.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  job_config_file: "{{ galaxy_config_dir }}/job_conf.yml"
+  job_config_file: '{{ galaxy_config_dir }}/job_conf.yml'
 
   # Description of job running configuration, can be embedded into
   # Galaxy configuration or loaded from an additional file with the
@@ -2274,7 +2274,7 @@ base_app_main: &BASE_APP_MAIN
   # which Galaxy processes should schedule workflows.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  workflow_schedulers_config_file: "{{ galaxy_config_dir }}/workflow_schedulers_conf.xml"
+  workflow_schedulers_config_file: '{{ galaxy_config_dir }}/workflow_schedulers_conf.xml'
 
   # If using job concurrency limits (configured in job_config_file),
   # several extra database queries must be performed to determine the
@@ -2302,12 +2302,12 @@ base_app_main: &BASE_APP_MAIN
   # Define toolbox filters
   # (https://galaxyproject.org/user-defined-toolbox-filters/) that
   # admins may use to restrict the tool labels to display.
-  tool_label_filters: "global_host_filters:per_host_tool_labels"
+  tool_label_filters: 'global_host_filters:per_host_tool_labels'
 
   # Define toolbox filters
   # (https://galaxyproject.org/user-defined-toolbox-filters/) that
   # admins may use to restrict the tool sections to display.
-  tool_section_filters: "global_host_filters:per_host_tool_sections"
+  tool_section_filters: 'global_host_filters:per_host_tool_sections'
 
   # Define toolbox filters
   # (https://galaxyproject.org/user-defined-toolbox-filters/) that users
@@ -2339,7 +2339,7 @@ base_app_main: &BASE_APP_MAIN
   # either, Galaxy will automatically create and use a separate sqlite
   # database located in your <galaxy>/database folder (indicated in the
   # commented out line below).
-  amqp_internal_connection: "pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@mqesginstance.esgwps.uno:5671/galaxy?ssl=1"
+  amqp_internal_connection: 'pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@mqesginstance.esgwps.uno:5671/galaxy?ssl=1'
   # amqp_internal_connection: "amqp://galaxy:{{ rabbitmq_password_galaxy }}@localhost:5672/galaxy"
 
   # Configuration options passed to Celery.
@@ -2360,7 +2360,7 @@ base_app_main: &BASE_APP_MAIN
   #    galaxy.set_job_metadata: galaxy.external
 
   celery_conf:
-    result_backend: "redis://:{{ redis_requirepass }}@mqesginstance.esgwps.uno:6379/0"
+    result_backend: 'redis://:{{ redis_requirepass }}@mqesginstance.esgwps.uno:6379/0'
     task_routes:
       galaxy.fetch_data: disabled
       galaxy.set_job_metadata: galaxy.external
@@ -2490,10 +2490,10 @@ base_app_main: &BASE_APP_MAIN
   # expired_notifications_cleanup_interval: 86400
 
   # TODO(hxr): UNDOCUMENTED
-  ucsc_build_sites: "{{ galaxy_config_dir }}/ucsc_build_sites.txt"
+  ucsc_build_sites: '{{ galaxy_config_dir }}/ucsc_build_sites.txt'
 
 galaxy_config_hash:
-  "uwsgi": {}
-  "gravity": {}
-  "galaxy":
+  'uwsgi': {}
+  'gravity': {}
+  'galaxy':
     <<: *BASE_APP_MAIN

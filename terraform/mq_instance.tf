@@ -1,21 +1,17 @@
-data "openstack_images_image_v2" "os_image" {
-  name = "Rocky 9.0"
-}
-
-resource "openstack_compute_instance_v2" "rustus_instance" {
-  name            = "ESG WP4 Galaxy Rustus instance"
+resource "openstack_compute_instance_v2" "mq_instance" {
+  name            = "ESG_Galaxy_MQ_instance"
   flavor_name     = "m1.medium"
-  key_pair        = "cloud2"
-  security_groups = ["default", "public-ssh", "ufr-ingress", "public-web2"]
+  key_pair        = "esg-sanjay-keypair"
+  security_groups = ["default", "esg-public-ssh", "esg-public-web", "esg-public-amqp"]
 
   network {
-    name = "public"
+    name = "public-extended"
   }
 
   block_device {
     uuid                  = data.openstack_images_image_v2.os_image.id
     source_type           = "image"
-    volume_size           = 20
+    volume_size           = 30
     destination_type      = "volume"
     boot_index            = 0
     delete_on_termination = true

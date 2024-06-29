@@ -22,6 +22,9 @@ destinations:
       submit_request_memory: '{mem}G'
       outputs_to_working_directory: false
       container_monitor_result: callback
+    context:
+      latitude: 47.9990
+      longitude: 7.8421
 
   basic_singularity_destination:
     abstract: true
@@ -35,6 +38,9 @@ destinations:
         $job_directory/outputs:rw,
         $working_directory:rw'
       singularity_default_container_id: '/cvmfs/singularity.galaxyproject.org/all/centos:8.3.2011'
+    context:
+      latitude: 47.9990
+      longitude: 7.8421
 
   #############################
   # LOCAL CONDOR DESTINATIONS #
@@ -76,6 +82,9 @@ destinations:
     scheduling:
       prefer:
         - condor-tpv
+    context:
+      latitude: 47.9990
+      longitude: 7.8421
 
   condor_singularity_with_conda:
     inherits: basic_singularity_destination
@@ -172,6 +181,9 @@ destinations:
     scheduling:
       require:
         - pulsar_de01
+    context:
+      latitude: 47.9990
+      longitude: 7.8421
 
   pulsar_be01:
     inherits: pulsar_default
@@ -189,6 +201,9 @@ destinations:
     scheduling:
       require:
         - pulsar_be01
+    context:
+      latitude: 51.0179
+      longitude: 3.6940
 
 
   ################################
@@ -207,3 +222,6 @@ destinations:
     scheduling:
       require:
         - pulsar-tpv
+    context:
+      latitude: 47.9990
+      longitude: 7.8421

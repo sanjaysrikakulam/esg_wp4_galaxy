@@ -1,0 +1,16 @@
+---
+# Create a dictionary, for every pulsar in the dict there is a key value pair
+multiple_pulsar_conf:
+  - pulsar_name: pulsar_galaxy_eu
+    amqp_username: pulsar_galaxy_eu
+    amqp_password: pulsar_galaxy_eu
+    amqp_host: mq.galaxyproject.eu
+    amqp_port: 5672
+    amqp_queue: pulsar/pulsar_galaxy_eu
+    persistence_dir: "/nfs_share/{{ pulsar_name }}/persistence"
+    staging_dir: "/nfs_share/{{ pulsar_name }}/staging"
+
+default_pulsar_conf_dir: '/opt/pulsar/'
+default_pulsar_conf_dir_name: 'config'
+default_pulsar_systemd_file: '/etc/systemd/system/pulsar.service'
+pulsar_venv: '/opt/pulsar/venv3'
