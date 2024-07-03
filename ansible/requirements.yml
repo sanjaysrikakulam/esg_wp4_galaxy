@@ -12,13 +12,13 @@ collections:
     source: https://galaxy.ansible.com
     type: galaxy
   - name: usegalaxy_eu.handy
-    version: 3.0.1
+    version: 3.1.1
     source: https://galaxy.ansible.com
 
 roles:
   - name: galaxyproject.galaxy
     src: https://github.com/galaxyproject/ansible-galaxy
-    version: 0.10.15
+    version: 0.10.18
   - name: galaxyproject.cvmfs
     src: https://github.com/usegalaxy-eu/ansible-cvmfs
     version: master
@@ -53,7 +53,7 @@ roles:
   - name: usegalaxy_eu.rustus
     version: 0.2.0
   - name: usegalaxy_eu.rabbitmqserver
-    version: 1.4.4
+    version: 1.4.5
   - name: influxdata.chrony
     src: https://github.com/usegalaxy-eu/ansible-chrony
     version: 0.1.0
@@ -66,7 +66,7 @@ roles:
   - name: galaxyproject.nginx
     version: 0.6.4
   - name: usegalaxy_eu.flower
-    version: 1.0.2
+    version: 2.0.0
   - name: usegalaxy_eu.galaxy_subdomains
     version: 0.0.13
   - name: usegalaxy-eu.fslimit
