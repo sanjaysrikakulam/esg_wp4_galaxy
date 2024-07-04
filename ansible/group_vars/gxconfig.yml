@@ -359,6 +359,54 @@ base_app_main: &BASE_APP_MAIN
   # FileSource plugins described embedded into Galaxy's config.
   #file_sources: null
 
+  # Configured Object Store templates configuration file.
+  # The value of this option will be resolved with respect to
+  # <config_dir>.
+  object_store_templates_config_file: '{{ galaxy_config_dir }}/object_store_templates.yml'
+
+  # Configured Object Store templates embedded into Galaxy's config.
+  #object_store_templates: null
+
+  # Configured user file source templates configuration file.
+  # The value of this option will be resolved with respect to
+  # <config_dir>.
+  file_source_templates_config_file: '{{ galaxy_config_dir }}/file_source_templates.yml'
+
+  # Configured user file source templates embedded into Galaxy's config.
+  #file_source_templates: null
+
+  # Configure URIs for user object stores to use either the object ID
+  # ('id') or UUIDs ('uuid'). Either is fine really, Galaxy doesn't
+  # typically expose database objects by 'id' but there isn't any
+  # obvious disadvantage to doing it in this case and it keeps user
+  # exposed URIs much smaller. The default of UUID feels a little more
+  # like a typical way to do this within Galaxy though. Do not change
+  # this value once user object stores have been created.
+  #user_config_templates_index_by: uuid
+
+  # User defined object stores and file sources are saved in the
+  # database with their last valid configuration. It may be the case
+  # that the admin changes file source and object store templates over
+  # time such that the variables and secrets an instance is saved with
+  # no longer match the configuration's expected values. For this
+  # reason, admins should always add new versions of templates instead
+  # of just changing them - however people take shortcuts and
+  # divergences might happen. If a template is changed in such a way it
+  # breaks or if a template disappears from the library of templates
+  # this parameter controls how and if the database version will be
+  # used.
+  # By default, it will simply be used as a 'fallback' if a
+  # configuration cannot be resolved against the template version in the
+  # configuration file. Using 'preferred' instead will mean the stored
+  # database version is always used. This ensures a greater degree of
+  # reproducibility without effort on the part of the admin but also
+  # means that small issues are not easy to fix. Using 'never' instead
+  # will ensure the config templates are always only loaded from the
+  # template library files - this might make sense for admins who want
+  # to disable templates without worrying about the contents of the
+  # database.
+  #user_config_templates_use_saved_configuration: fallback
+
   # Enable Galaxy to fetch containers registered with quay.io generated
   # from tool requirements resolved through Conda. These containers
   # (when available) have been generated using mulled -
@@ -937,7 +985,7 @@ base_app_main: &BASE_APP_MAIN
   # defaults to "GLOBAL" if not set or the
   # `geographical_server_location_code` value is invalid or unsupported.
   # To see a full list of supported locations, visit
-  # https://galaxyproject.org/admin/carbon_emissions
+  # https://docs.galaxyproject.org/en/master/admin/carbon_emissions.html
   #geographical_server_location_code: GLOBAL
 
   # The estimated power usage effectiveness of the data centre housing
@@ -2414,35 +2462,37 @@ base_app_main: &BASE_APP_MAIN
   # database located in your <galaxy>/database folder (indicated in the
   # commented out line below).
   amqp_internal_connection: 'pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@mqesginstance.esgwps.uno:5671/galaxy?ssl=1'
-  # amqp_internal_connection: "amqp://galaxy:{{ rabbitmq_password_galaxy }}@localhost:5672/galaxy"
+
+  # Offload long-running tasks to a Celery task queue. Activate this
+  # only if you have setup a Celery worker for Galaxy and you have
+  # configured the `celery_conf` option below. Specifically, you need to
+  # set the `result_backend` option in the `celery_conf` option to a
+  # valid Celery result backend URL. By default, Galaxy uses an SQLite
+  # database at '<data_dir>/results.sqlite' for storing task results.
+  # For details, see
+  # https://docs.galaxyproject.org/en/master/admin/production.html#use-celery-for-asynchronous-tasks
+  enable_celery_tasks: true
 
   # Configuration options passed to Celery.
   # To refer to a task by name, use the template `galaxy.foo` where
   # `foo` is the function name of the task defined in the
   # galaxy.celery.tasks module.
-  # The `broker_url` option, if unset, defaults to the value of
-  # `amqp_internal_connection`. The `result_backend` option must be set
-  # if the `enable_celery_tasks` option is set.
+  # The `broker_url` option, if unset or null, defaults to the value of
+  # `amqp_internal_connection`. The `result_backend` option, if unset or
+  # null, defaults to an SQLite database at '<data_dir>/results.sqlite'
+  # for storing task results. Please use a more robust backend (e.g.
+  # Redis) for production setups.
   # The galaxy.fetch_data task can be disabled by setting its route to
   # "disabled": `galaxy.fetch_data: disabled`. (Other tasks cannot be
   # disabled on a per-task basis at this time.)
   # For details, see Celery documentation at
   # https://docs.celeryq.dev/en/stable/userguide/configuration.html.
-  #celery_conf:
-  #  task_routes:
-  #    galaxy.fetch_data: galaxy.external
-  #    galaxy.set_job_metadata: galaxy.external
-
   celery_conf:
     result_backend: 'redis://:{{ redis_requirepass }}@mqesginstance.esgwps.uno:6379/0'
     task_routes:
       galaxy.fetch_data: disabled
       galaxy.set_job_metadata: galaxy.external
-
-  # Offload long-running tasks to a Celery task queue. Activate this
-  # only if you have setup a Celery worker for Galaxy. For details, see
-  # https://docs.galaxyproject.org/en/master/admin/production.html
-  enable_celery_tasks: true
+  #   galaxy.fetch_data: galaxy.external
 
   # If set to a non-0 value, upper limit on number of tasks that can be
   # executed per user per second.
@@ -2475,7 +2525,7 @@ base_app_main: &BASE_APP_MAIN
 
   # Set remote path of the trained model (HDF5 file) for tool
   # recommendation.
-  tool_recommendation_model_path: https://github.com/galaxyproject/galaxy-test-data/raw/master/tool_recommendation_model_v_0.2.hdf5
+  tool_recommendation_model_path: https://github.com/galaxyproject/galaxy-test-data/raw/master/tool_recommendation_model.hdf5
 
   # Set the number of predictions/recommendations to be made by the
   # model
@@ -2516,7 +2566,7 @@ base_app_main: &BASE_APP_MAIN
   # Vault config file.
   # The value of this option will be resolved with respect to
   # <config_dir>.
-  #vault_config_file: vault_conf.yml
+  vault_config_file: vault_conf.yml
 
   # Display built-in converters in the tool panel.
   #display_builtin_converters: true
@@ -2566,6 +2616,10 @@ base_app_main: &BASE_APP_MAIN
   # notifications from the database (every 24 hours by default). Runs in
   # a Celery task.
   #expired_notifications_cleanup_interval: 86400
+
+  # The interval in seconds between attempts to dispatch notifications
+  # to users (every 10 minutes by default). Runs in a Celery task.
+  #dispatch_notifications_interval: 600
 
   # The URL pointing to the Galaxy Help Forum API base URL. The API must
   # be compatible with Discourse API (https://docs.discourse.org/).

@@ -36,7 +36,7 @@ preferences:
     description: The URL to your ARC remote HPC compute resource.
     inputs:
       - name: remote_arc_resources
-        label: "Add your remote resource url (example: https://arctestcluster-slurm-el9-arc7-ce1.cern-test.uiocloud.no)"
+        label: 'Add your remote resource url (example: https://arctestcluster-slurm-el9-arc7-ce1.cern-test.uiocloud.no)'
         type: text
         required: False
 
@@ -48,9 +48,9 @@ preferences:
         type: select
         required: False
         options:
-          - ["default - Galaxy will decide where to put your job", None]
-          - ["Freiburg (Germany) - ALU-FR", pulsar_de01]
-          - ["Brussel (Belgium) - VIB", pulsar_be01]
+          - ['default - Galaxy will decide where to put your job', None]
+          - ['Freiburg (Germany) - ALU-FR', pulsar_de01]
+          - ['Brussel (Belgium) - VIB', pulsar_be01]
 
   ega_account:
     description: Your EGA (European Genome Archive) account
@@ -96,9 +96,9 @@ preferences:
   # Require to attach pulsar endpoint to the Pulsar Network
   byoc_pulsar:
     description: >
-        Bring your own Pulsar endpoint to Galaxy. You can add here your Pulsar credentials and specifications.
-        After 24 hours Galaxy's job scheduling systems will take your Pulsar into account and schedule appropriate jobs to your compute resources.
-        This is an experimental feature. Contact us if you want to learn more about it.
+      Bring your own Pulsar endpoint to Galaxy. You can add here your Pulsar credentials and specifications.
+      After 24 hours Galaxy's job scheduling systems will take your Pulsar into account and schedule appropriate jobs to your compute resources.
+      This is an experimental feature. Contact us if you want to learn more about it.
     inputs:
       - name: username
         label: RabbitMQ custom username (e.g. mypulsarendpoint).
@@ -172,3 +172,60 @@ preferences:
         label: API Read Access Token
         type: password
         required: False
+
+    invenio:
+      description: Your Invenio RDM Integration Settings
+      inputs:
+        - name: token
+          label: Personal Token used to create draft records and to upload files
+          type: secret
+          store: vault # Requires setting up vault_config_file in your galaxy.yml
+          required: False
+        - name: public_name
+          label: Creator name to associate with new records (formatted as "Last name, First name"). If left blank "Anonymous Galaxy User" will be used. You can always change this by editing your record directly.
+          type: text
+          required: False
+
+    zenodo:
+      description: Your Zenodo Integration Settings
+      inputs:
+        - name: token
+          label: Personal Access Token used to create draft records and to upload files. You can manage your tokens at https://zenodo.org/account/settings/applications/
+          type: secret
+          store: vault # Requires setting up vault_config_file in your galaxy.yml
+          required: False
+        - name: public_name
+          label: Creator name to associate with new records (formatted as "Last name, First name"). If left blank "Anonymous Galaxy User" will be used. You can always change this by editing your record directly.
+          type: text
+          required: False
+
+    zenodo_sandbox:
+      description: Your Zenodo Sandbox Integration Settings (TESTING ONLY)
+      inputs:
+        - name: token
+          label: Personal Access Token used to create draft records and to upload files. You can manage your tokens at https://sandbox.zenodo.org/account/settings/applications/
+          type: secret
+          store: vault # Requires setting up vault_config_file in your galaxy.yml
+          required: False
+        - name: public_name
+          label: Creator name to associate with new records (formatted as "Last name, First name"). If left blank "Anonymous Galaxy User" will be used. You can always change this by editing your record directly.
+          type: text
+          required: False
+
+    # Used in file_sources_conf.yml
+    onedata:
+      description: Your Onedata account
+      inputs:
+        - name: onezone_domain
+          label: Domain of the Onezone service (e.g. datahub.egi.eu)
+          type: text
+          required: False
+        - name: access_token
+          label: Your access token, suitable for REST API access in a Oneprovider service
+          type: password
+          required: False
+        - name: disable_tls_certificate_validation
+          label: Allow connection to Onedata servers that do not present trusted SSL certificates. SHOULD NOT be used unless you really know what you are doing.
+          type: boolean
+          required: False
+          value: False
