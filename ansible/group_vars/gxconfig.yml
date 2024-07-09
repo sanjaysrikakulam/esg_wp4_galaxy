@@ -765,11 +765,11 @@ base_app_main: &BASE_APP_MAIN
   # for that object store entry.
   # The value of this option will be resolved with respect to
   # <cache_dir>.
-  #object_store_cache_path: object_store_cache
+  object_store_cache_path: /data/twd01/s3_object_store_cache
 
   # Default cache size for caching object stores if cache not configured
   # for that object store entry.
-  #object_store_cache_size: -1
+  object_store_cache_size: 1000
 
   # Set this to true to indicate in the UI that a user's object store
   # selection isn't simply a "preference" that job destinations often
@@ -922,11 +922,11 @@ base_app_main: &BASE_APP_MAIN
   # Please enter the URL for the Plausible server (including https) so
   # this can be used for tracking with Plausible
   # (https://plausible.io/).
-  #plausible_server: null
+  plausible_server: https://plausible.galaxyproject.eu
 
   # Please enter the URL for the Galaxy server so this can be used for
   # tracking with Plausible (https://plausible.io/).
-  #plausible_domain: null
+  plausible_domain: https://usegalaxy.esgwps.uno
 
   # Please enter the URL for the Matomo server (including https) so this
   # can be used for tracking with Matomo (https://matomo.org/).
