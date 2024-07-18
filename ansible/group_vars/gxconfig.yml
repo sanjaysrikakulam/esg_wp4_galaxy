@@ -146,7 +146,7 @@ base_app_main: &BASE_APP_MAIN
   # Pulsar.
   # The value of this option will be resolved with respect to
   # <data_dir>.
-  new_file_path: /data/galaxy_data/galaxy_db/tmp
+  new_file_path: /data/twd01/galaxy_db/tmp
 
   # Maximum size of uploadable files, specified in bytes (default:
   # 100GB). This value is ignored if an external upload server is
@@ -1262,7 +1262,7 @@ base_app_main: &BASE_APP_MAIN
   # The upload store is a temporary directory in which files uploaded by
   # the tus middleware or server for remote job files (Pulsar) will be
   # placed. Defaults to tus_upload_store if not set.
-  tus_upload_store: '/data/galaxy_data/tus_upload/main'
+  tus_upload_store: '/data/twd01/tus_upload/main'
 
   # Galaxy can upload user files in chunks without using nginx. Enable
   # the chunk uploader by specifying a chunk size larger than 0. The
@@ -2102,7 +2102,7 @@ base_app_main: &BASE_APP_MAIN
 
   # Directory to store Data Manager based tool-data. Defaults to the
   # value of the <tool_data_path> option.
-  galaxy_data_manager_data_path: /data/galaxy_data/db/data_managers
+  galaxy_data_manager_data_path: /data/twd01/db/data_managers
 
   # To increase performance of job execution and the web interface, you
   # can separate Galaxy into multiple processes.  There are more than

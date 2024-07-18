@@ -10,7 +10,7 @@
             <extra_dir type="temp" path="/data/galaxy_data/galaxy_db/tmp"/>
             <extra_dir type="job_work" path="/local/jwd01/main"/>
         </backend>
-        <backend id="files2" allow_selection="true" type="disk" weight="4" store_by="id">
+        <backend id="files2" allow_selection="true" type="disk" weight="0" store_by="id">
             <badges>
                 <more_stable />
                 <not_backed_up />
@@ -19,6 +19,16 @@
             <extra_dir type="temp" path="/data/galaxy_data/galaxy_db/tmp"/>
             <extra_dir type="job_work" path="/data/twd01/main"/>
         </backend>
+        <backend id="files3" allow_selection="true" type="disk" weight="4" store_by="id">
+            <badges>
+                <more_stable />
+                <not_backed_up />
+            </badges>
+            <files_dir path="/data/twd01/galaxy_db/files"/>
+            <extra_dir type="temp" path="/data/twd01/galaxy_db/tmp"/>
+            <extra_dir type="job_work" path="/data/twd01/main"/>
+        </backend>
+        <!--
         <backend id="egi_byos_it_01" allow_selection="true" type="generic_s3" weight="0" store_by="uuid" name="Short term storage for method development">
             <description>Test object store in the EGI Federated Cloud (INFN-CLOUD-BARI)
             </description>
@@ -31,7 +41,6 @@
             <auth access_key="{{ egi_byos_it_01.access_key }}" secret_key="{{ egi_byos_it_01.secret_key }}" />
             <bucket name="{{ egi_byos_it_01.bucket_name }}" use_reduced_redundancy="False" max_chunk_size="250" />
             <connection host="byos-it-api.vm.fedcloud.eu" port="443" is_secure="True" conn_path="" multipart="True"/>
-            <!-- size is in GB -->
             <cache path="/data/twd01/s3_object_store_cache" size="1000" />
             <extra_dir type="job_work" path="/data/twd01/main"/>
             <extra_dir type="temp" path="/data/twd01/tmp"/>
@@ -48,10 +57,10 @@
             <auth access_key="{{ egi_byos_sk_01.access_key }}" secret_key="{{ egi_byos_sk_01.secret_key }}" />
             <bucket name="{{ egi_byos_sk_01.bucket_name }}" use_reduced_redundancy="False" max_chunk_size="250" />
             <connection host="byos-sk-api.vm.fedcloud.eu" port="443" is_secure="True" conn_path="" multipart="True"/>
-            <!-- size is in GB -->
             <cache path="/data/twd01/s3_object_store_cache" size="1000" />
             <extra_dir type="job_work" path="/data/twd01/main"/>
             <extra_dir type="temp" path="/data/twd01/tmp"/>
         </backend>
+        -->
     </backends>
 </object_store>
