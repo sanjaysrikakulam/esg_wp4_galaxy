@@ -926,7 +926,7 @@ base_app_main: &BASE_APP_MAIN
 
   # Please enter the URL for the Galaxy server so this can be used for
   # tracking with Plausible (https://plausible.io/).
-  plausible_domain: usegalaxy.esgwps.uno
+  plausible_domain: usegalaxy.esgwps.lol
 
   # Please enter the URL for the Matomo server (including https) so this
   # can be used for tracking with Matomo (https://matomo.org/).
@@ -1090,7 +1090,7 @@ base_app_main: &BASE_APP_MAIN
   # with Galaxy via the API.
   # If you plan to run Interactive Tools make sure the docker container
   # can reach this URL.
-  galaxy_infrastructure_url: 'https://usegalaxy.esgwps.uno'
+  galaxy_infrastructure_url: 'https://usegalaxy.esgwps.lol'
 
   # If the above URL cannot be determined ahead of time in dynamic
   # environments but the port which should be used to access Galaxy can
@@ -1138,7 +1138,7 @@ base_app_main: &BASE_APP_MAIN
   # The URL linked by the "Terms and Conditions" link in the "Help"
   # menu, as well as on the user registration and login forms and in the
   # activation emails.
-  terms_url: https://usegalaxy.esgwps.uno/terms
+  terms_url: https://usegalaxy.esgwps.lol/terms
 
   # Serve static content, which must be enabled if you're not serving it
   # via a proxy server.  These options should be self explanatory and so
@@ -2461,7 +2461,7 @@ base_app_main: &BASE_APP_MAIN
   # either, Galaxy will automatically create and use a separate sqlite
   # database located in your <galaxy>/database folder (indicated in the
   # commented out line below).
-  amqp_internal_connection: 'pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@mqesginstance.esgwps.uno:5671/galaxy?ssl=1'
+  amqp_internal_connection: 'pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@mqesginstance.esgwps.lol:5671/galaxy?ssl=1'
 
   # Offload long-running tasks to a Celery task queue. Activate this
   # only if you have setup a Celery worker for Galaxy and you have
@@ -2488,7 +2488,7 @@ base_app_main: &BASE_APP_MAIN
   # For details, see Celery documentation at
   # https://docs.celeryq.dev/en/stable/userguide/configuration.html.
   celery_conf:
-    result_backend: 'redis://:{{ redis_requirepass }}@mqesginstance.esgwps.uno:6379/0'
+    result_backend: 'redis://:{{ redis_requirepass }}@mqesginstance.esgwps.lol:6379/0'
     task_routes:
       galaxy.fetch_data: disabled
       galaxy.set_job_metadata: galaxy.external

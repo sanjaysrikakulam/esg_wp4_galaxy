@@ -16,7 +16,8 @@ destinations:
       # $defaults expands to "$galaxy_root:ro,$tool_directory:ro,$job_directory:ro,$working_directory:rw,$default_file_path:rw"
       docker_volumes: '$_CONDOR_SCRATCH_DIR:rw,
         $defaults,
-        /cvmfs/data.galaxyproject.org:ro'
+        /cvmfs/data.galaxyproject.org:ro,
+        /data/twd01/galaxy_db/:rw'
       require_container: true
       submit_request_cpus: '{cores}'
       submit_request_memory: '{mem}G'

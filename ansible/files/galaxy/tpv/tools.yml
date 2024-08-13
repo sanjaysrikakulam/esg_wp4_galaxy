@@ -21,7 +21,7 @@ tools:
               if tag != pulsar_tag
           ]
     env:
-      TEMP: /data/galaxy_data/galaxy_db/tmp
+      TEMP: /data/twd01/galaxy_db/tmp
 
   toolshed.g2.bx.psu.edu/repos/iuc/enasearch_search_data/enasearch_search_data/.*:
     scheduling:
@@ -52,7 +52,7 @@ tools:
     #   objectstore_dict = yaml.load(objectstore_file)
 
     #   # Define the URL of your FastAPI application
-    #   api_url = "https://usegalaxy.esgwps.uno/tpv-api/process_destinations"
+    #   api_url = "https://usegalaxy.esgwps.lol/tpv-api/process_destinations"
 
     #   candidate_destinations_list = []
     #   for dest in candidate_destinations:
@@ -83,3 +83,16 @@ tools:
 
     #   sorted_candidate_destinations = sorted(candidate_destinations, key=lambda x: sorted_destination_ids.index(x.id))
     #   sorted_candidate_destinations
+
+  basic_docker_tool:
+    scheduling:
+      require:
+        - docker
+
+  toolshed.g2.bx.psu.edu/repos/goeckslab/squidpy/squidpy_spatial/*:
+    inherits: basic_docker_tool
+    mem: 6
+    params:
+      docker_run_extra_arguments: '--mount type=tmpfs,tmpfs-size=2147483648,destination=/tmp'
+    env:
+      _GALAXY_JOB_TMP_DIR: /tmp

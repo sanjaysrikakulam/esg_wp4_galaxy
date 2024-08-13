@@ -96,7 +96,7 @@ autofs_conf_files:
     - /opt/galaxy        -rw,hard,nosuid     132.230.224.180:/nfs_shares/galaxy_main
 
 # Role: htcondor_client
-condor_host: 'galaxyesginstance.esgwps.uno'
+condor_host: 'galaxyesginstance.esgwps.lol'
 condor_allow_write: '132.230.224.0/24'
 condor_allow_administrator: '132.230.224.0/24, 132.230.224.103'
 condor_fs_domain: esg.uni-freiburg.de

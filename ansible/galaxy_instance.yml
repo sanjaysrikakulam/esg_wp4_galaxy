@@ -6,7 +6,7 @@
     nginx_conf_user: galaxy
     server_names:
       - '{{ hostname }}'
-      - 'usegalaxy.esgwps.uno'
+      - 'usegalaxy.esgwps.lol'
   vars_files:
     - group_vars/gxconfig.yml
     - group_vars/custom-sites.yml
