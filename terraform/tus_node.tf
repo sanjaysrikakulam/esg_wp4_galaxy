@@ -1,5 +1,6 @@
 data "openstack_images_image_v2" "rustus_os_image" {
   name = "Rocky 9.3"
+  # visibility = "shared"
 }
 
 resource "openstack_compute_instance_v2" "rustus_instance" {
