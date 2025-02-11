@@ -56,6 +56,33 @@ Please mind `http` and `https`.
 
 -->
 <OIDC>
+    <provider name="Keycloak">
+        <!-- The URL should include the base keycloak path as well as the realm -->
+        <url>https://keycloak.example.org/realms/master/</url>
+        <client_id> ... </client_id>
+        <client_secret> ... </client_secret>
+        <redirect_uri>http://localhost:8080/authnz/keycloak/callback</redirect_uri>
+        <!-- (Optional): a provider label to display in the UI -->
+        <!-- <label>My provider name</label> -->
+        <!-- (Optional): whether to show a create account confirmation page -->
+        <!-- <require_create_confirmation>false</require_create_confirmation> -->
+        <!-- (Optional) Trusted CA certificate file or directory to use when verify Custos authorization server.
+             See http://docs.python-requests.org/en/master/user/advanced/#ssl-cert-verification for more information. -->
+        <!-- <ca_bundle>/path/to/ca_bundle</ca_bundle> -->
+        <!-- (Optional) Override the default Custos well-known URL to point to a different instance -->
+        <!-- <well_known_oidc_config_uri>https://.../.well-known/openid-configuration</well_known_oidc_config_uri> -->
+        <!-- (Optional) Override the default idp hint -->
+        <!-- <idphint>cilogon</idphint> -->
+        <!-- (Optional) Enable logging out of the IDP when user logs out of Galaxy -->
+        <!-- <enable_idp_logout>false</enable_idp_logout> -->
+        <!-- <icon>https://path/to/icon</icon>  -->
+        <!-- (Optional) Enable PKCE for this IDP -->
+        <!-- <pkce_support>false</pkce_support> -->
+        <!-- (Optional) the audiences accepted on the access-token for this IDP. -->
+        <!-- <accepted_audiences>galaxy</accepted_audiences> -->
+
+    </provider>
+
     <!-- Documentation: https://galaxyproject.org/authnz/config/oidc/idps/elixir-aai  -->
     <provider name="Elixir">
         <client_id>...</client_id>
@@ -79,4 +106,6 @@ Please mind `http` and `https`.
 	<!-- (Optional) Which Check-in environment to use (prod, demo, dev), default is prod -->
 	<!-- <checkin_env>dev</checkin_env> -->
     </provider>
+
+
 </OIDC>
