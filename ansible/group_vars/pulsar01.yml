@@ -88,7 +88,7 @@ docker_daemon_options: {}
 #   - data
 # autofs_conf_files:
 #   data:
-#     - twd01            -rw,hard,nosuid      zfs0f.galaxyproject.eu:/export/twd01
+#     - twd01            -rw,hard,nosuid      zfs06.bi.privat:/export/twd01
 
 # Role: pulsar_htcondor_master_and_client
 condor_host: '132.230.224.179'
