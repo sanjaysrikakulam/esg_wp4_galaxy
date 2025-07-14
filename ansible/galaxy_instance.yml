@@ -188,7 +188,7 @@
     - role: usegalaxy-eu.webhooks # Clone webhook repository
       become: true
       become_user: galaxy
-    - usegalaxy-eu.webhooks-toolmsg_24.2
+    # - usegalaxy-eu.webhooks-toolmsg_24.2
     - role: usegalaxy-eu.tours # Clone tour repository
       become: true
       become_user: galaxy

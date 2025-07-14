@@ -67,6 +67,7 @@ autofs_conf_files:
     - twd01            -rw,hard,nosuid      zfs06.bi.privat:/export/twd01
   usrlocal:
     - /usr/local/tools   -rw,hard,nosuid     132.230.224.180:/nfs_shares/tools
+    # - /opt/galaxy/shed_tools       -rw,hard,nosuid      zfs07.bi.privat:/export/shed_tools
 
 # Miniconda role variables (galaxyproject.miniconda)
 conda_prefix_dir: /data/twd01/tools/miniconda
@@ -150,18 +151,18 @@ galaxy_cvmfs_repos_enabled: config-repo
 
 # SystemD
 galaxy_systemd_mode: 'gunicorn'
-galaxy_systemd_gunicorns: 1
+galaxy_systemd_gunicorns: 3
 galaxy_systemd_gunicorn_workers: 2
 galaxy_systemd_gunicorn_timeout: 600
-galaxy_systemd_handlers: 1
-galaxy_systemd_workflow_schedulers: 1
+galaxy_systemd_handlers: 3
+galaxy_systemd_workflow_schedulers: 3
 
 galaxy_systemd_handler_env: ''
 galaxy_systemd_workflow_scheduler_env: ''
 
-galaxy_systemd_memory_limit: 5
-galaxy_systemd_memory_limit_handler: 2
-galaxy_systemd_memory_limit_workflow: 2
+galaxy_systemd_memory_limit: 8
+galaxy_systemd_memory_limit_handler: 10
+galaxy_systemd_memory_limit_workflow: 5
 
 # HTCondor
 condor_host: '{{ inventory_hostname }}'
@@ -268,7 +269,7 @@ galaxy_instance_hostname: '{{ inventory_hostname }}'
 galaxy_config_style: yaml
 
 galaxy_repo: 'https://github.com/usegalaxy-eu/galaxy.git'
-galaxy_commit_id: 'release_24.2_europe'
+galaxy_commit_id: 'release_25.0_europe'
 galaxy_force_checkout: true # discard any modified files
 
 galaxy_singularity_images_cvmfs_path: '/cvmfs/singularity.galaxyproject.org/all/'
