@@ -1,3 +1,3 @@
 ---
-- include: install_packages.yml
-- include: configure_autofs.yml
+- ansible.builtin.include_tasks: install_packages.yml
+- ansible.builtin.include_tasks: configure_autofs.yml

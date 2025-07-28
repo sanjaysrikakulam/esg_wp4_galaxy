@@ -91,12 +91,14 @@ autofs_conf_files:
   data:
     - galaxy_data      -rw,hard,nosuid      132.230.224.180:/nfs_shares/&
     - twd01            -rw,hard,nosuid      zfs06.bi.privat:/export/twd01
+
   usrlocal:
     - /usr/local/tools   -rw,hard,nosuid     132.230.224.180:/nfs_shares/tools
     - /opt/galaxy        -rw,hard,nosuid     132.230.224.180:/nfs_shares/galaxy_main
+    - /opt/galaxy/shed_tools       -rw,hard,nosuid      zfs07.bi.privat:/export/shed_tools
 
 # Role: htcondor_client
-condor_host: 'galaxyesginstance.esgwps.lol'
+condor_host: 'galaxy-test.galaxyproject.eu'
 condor_allow_write: '132.230.224.0/24'
 condor_allow_administrator: '132.230.224.0/24, 132.230.224.103'
 condor_fs_domain: esg.uni-freiburg.de

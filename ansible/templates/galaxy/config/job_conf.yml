@@ -20,7 +20,7 @@ galaxy_jobconf:
     # - id: pulsar_sanjay_runner
     #   load: galaxy.jobs.runners.pulsar:PulsarMQJobRunner
     #   params:
-    #     amqp_url: "pyamqp://esg_pulsar01:{{ rabbitmq_password_esg_pulsar01 }}@mqesginstance.esgwps.lol:5671//pulsar/esg_pulsar01?ssl=1"
+    #     amqp_url: "pyamqp://esg_pulsar01:{{ rabbitmq_password_esg_pulsar01 }}@galaxy-test-mq.galaxyproject.eu:5671//pulsar/esg_pulsar01?ssl=1"
     #     galaxy_url: "https://usegalaxy.esgwps.lol"
     #     manager: production
     #     amqp_acknowledge: "true"
@@ -30,7 +30,7 @@ galaxy_jobconf:
     - id: pulsar_de01
       load: galaxy.jobs.runners.pulsar:PulsarMQJobRunner
       params:
-        amqp_url: 'pyamqp://esg_pulsar01:{{ rabbitmq_password_esg_pulsar01 }}@mqesginstance.esgwps.lol:5671//pulsar/esg_pulsar01?ssl=1'
+        amqp_url: 'pyamqp://esg_pulsar01:{{ rabbitmq_password_esg_pulsar01 }}@galaxy-test-mq.galaxyproject.eu:5671//pulsar/esg_pulsar01?ssl=1'
         galaxy_url: 'https://usegalaxy.esgwps.lol'
         manager: production
         amqp_acknowledge: 'true'
@@ -41,7 +41,7 @@ galaxy_jobconf:
     - id: pulsar_be01
       load: galaxy.jobs.runners.pulsar:PulsarMQJobRunner
       params:
-        amqp_url: 'pyamqp://pulsar_be01:{{ rabbitmq_password_pulsar_be01 }}@mqesginstance.esgwps.lol:5671//pulsar/pulsar_be01?ssl=1'
+        amqp_url: 'pyamqp://pulsar_be01:{{ rabbitmq_password_pulsar_be01 }}@galaxy-test-mq.galaxyproject.eu:5671//pulsar/pulsar_be01?ssl=1'
         galaxy_url: 'https://usegalaxy.esgwps.lol'
         manager: production
         amqp_acknowledge: 'true'

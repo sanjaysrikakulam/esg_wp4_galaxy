@@ -2521,7 +2521,7 @@ base_app_main: &BASE_APP_MAIN
   # either, Galaxy will automatically create and use a separate sqlite
   # database located in your <galaxy>/database folder (indicated in the
   # commented out line below).
-  amqp_internal_connection: 'pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@mqesginstance.esgwps.lol:5671/galaxy?ssl=1'
+  amqp_internal_connection: 'pyamqp://galaxy:{{ rabbitmq_password_galaxy }}@galaxy-test-mq.galaxyproject.eu:5671/galaxy?ssl=1'
 
   # Offload long-running tasks to a Celery task queue. Activate this
   # only if you have setup a Celery worker for Galaxy and you have
@@ -2548,7 +2548,7 @@ base_app_main: &BASE_APP_MAIN
   # For details, see Celery documentation at
   # https://docs.celeryq.dev/en/stable/userguide/configuration.html.
   celery_conf:
-    result_backend: 'redis://:{{ redis_requirepass }}@mqesginstance.esgwps.lol:6379/0'
+    result_backend: 'redis://:{{ redis_requirepass }}@galaxy-test-mq.galaxyproject.eu:6379/0'
     task_routes:
       galaxy.fetch_data: disabled
       galaxy.set_job_metadata: galaxy.external
