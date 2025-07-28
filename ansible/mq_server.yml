@@ -112,4 +112,4 @@
     - usegalaxy_eu.rabbitmqserver
     - geerlingguy.redis
     - devsec.hardening.os_hardening
-    - devsec.hardening.ssh_hardening
+    # - devsec.hardening.ssh_hardening

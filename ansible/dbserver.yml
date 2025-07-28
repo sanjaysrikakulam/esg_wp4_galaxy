@@ -13,6 +13,10 @@
       package:
         name: ['python3', 'rsync', 'perl', 'glibc-langpack-en', "python3-psycopg2", "firewalld"]
       become: true
+    - name: Set default version of Python
+      alternatives:
+        name: python
+        path: /usr/bin/python3.8
     - name: Enable and start firewalld
       service:
         name: firewalld
@@ -37,4 +41,4 @@
     - role: galaxyproject.postgresql_objects
       become: true
       become_user: postgres
-    - ssh_hardening
+    # - ssh_hardening

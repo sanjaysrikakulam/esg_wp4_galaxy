@@ -1,24 +1,25 @@
 [galaxy_instance]
-galaxyesginstance.esgwps.lol ansible_host=132.230.224.103
+galaxy-test.galaxyproject.eu ansible_host=132.230.224.103 ansible_python_interpreter=/usr/bin/python3.8
 
 [dbserver:children]
 galaxy_instance
 
 [mq_server]
-mqesginstance.esgwps.lol ansible_host=132.230.224.68
+galaxy-test-mq.galaxyproject.eu ansible_host=132.230.224.68
 
 [upload_server]
-uploadesginstance.esgwps.lol ansible_host=132.230.224.122
+galaxy-test-upload.galaxyproject.eu ansible_host=132.230.224.122 ansible_python_interpreter=/usr/bin/python3.8
 
-[nfs_server]
-nfsesginstance.esgwps.lol ansible_host=132.230.224.180
+# [nfs_server]
+# nfsesginstance.esgwps.lol ansible_host=132.230.224.180
 
 [compute_workers]
-computeworker0.esgwps.lol ansible_host=132.230.224.162
+computeworker0.galaxyproject.eu ansible_host=132.230.224.162 # No DNS entry for this.
 
 [pulsar01]
-pulsar01.esgwps.lol ansible_host=132.230.224.179
+pulsar01.galaxyproject.eu ansible_host=132.230.224.179 # No DNS entry for this.
 
 [all:vars]
 ansible_ssh_user=rocky
-ansible_ssh_private_key_file=/home/sanjay/.ssh/freiburg_gp_ecdsa
+ansible_ssh_private_key_file=/home/rocky/.ssh/freiburg_gp_ecdsa
+; ansible_python_interpreter=/usr/bin/python3.8

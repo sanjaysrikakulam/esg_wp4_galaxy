@@ -1,5 +1,5 @@
 # HTCondor configuration for Virtual Galaxy submit host
-CONDOR_HOST = galaxyesginstance.esgwps.lol
+CONDOR_HOST = galaxy-test.galaxyproject.eu
 ALLOW_WRITE = 132.230.224.0/24
 ALLOW_READ = $(ALLOW_WRITE)
 ALLOW_NEGOTIATOR = 132.230.224.103,$(CONDOR_HOST),$(ALLOW_WRITE)
